@@ -4,10 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nosso Dia Dos Namorados ❤️</title>
-    <audio id="backgroundMusic" autoplay loop>
-    <source src="Tribalistas - Velha Infância.mp3" type="audio/mpeg">
-    Seu navegador não suporta áudio HTML5.
-</audio>
+
+    <button id="playButton">Ouça nossa música ❤️</button>
+<audio id="bgMusic" src="musica.mp3" loop></audio>
+<script>
+  const playButton = document.getElementById('playButton');
+  const bgMusic = document.getElementById('bgMusic');
+
+  playButton.addEventListener('click', () => {
+    bgMusic.play();
+    playButton.style.display = 'none'; // esconde o botão após começar
+  });
+</script>
+
 
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
