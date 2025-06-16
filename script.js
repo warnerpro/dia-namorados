@@ -39,7 +39,7 @@ function updateRelationshipTime() {
     // IMPORTANTE: Mude esta data para quando vocês começaram a namorar!
     // Formato: Ano, Mês (0-11), Dia
     // Exemplo: new Date(2020, 7, 15) = 15 de agosto de 2020
-    const startDate = new Date(2021, 11, 22); // MUDE ESTA DATA!
+    const startDate = new Date(2021, 10, 22); // MUDE ESTA DATA!
     
     const now = new Date();
     const diffTime = Math.abs(now - startDate);
@@ -70,58 +70,26 @@ function updateRelationshipTime() {
     if (yearsElement) yearsElement.textContent = years;
     if (monthsElement) monthsElement.textContent = months;
     if (daysElement) daysElement.textContent = days;
-    
+    if (totalDaysElement) totalDaysElement.textContent = diffDays;
 }
 
-// Função para animar os números do contador
-function animateCounters() {
-    const timeNumbers = document.querySelectorAll('.time-number');
-    timeNumbers.forEach(number => {
-        number.style.transform = 'scale(1.1)';
-        setTimeout(() => {
-            number.style.transform = 'scale(1)';
-        }, 200);
-    });
-}
-
-// Função para tratar erros de carregamento de imagem
-function handleImageError(img) {
-    img.style.display = 'none';
-    console.log('Erro ao carregar imagem:', img.src);
-    // Tenta a próxima foto
-    setTimeout(changePhoto, 1000);
-}
-
-// Inicializa tudo quando a página carrega
-document.addEventListener('DOMContentLoaded', function() {
-    console.log('Página carregada, iniciando...');
-    
-    // Atualiza o contador de tempo
+// Função para inicializar tudo quando a página carregar
+function initializePage() {
+    // Atualiza o tempo de relacionamento imediatamente
     updateRelationshipTime();
     
-    // Atualiza o total de fotos
+    // Atualiza o tempo de relacionamento a cada minuto (60000 ms)
+    setInterval(updateRelationshipTime, 60000);
+    
+    // Inicia a troca automática de fotos a cada 3 segundos
+    setInterval(changePhoto, 3000);
+    
+    // Define o total de fotos
     const totalPhotosElement = document.getElementById('totalPhotos');
     if (totalPhotosElement) {
         totalPhotosElement.textContent = photos.length;
     }
-    
-    // Configura a primeira foto
-    const photoElement = document.getElementById('currentPhoto');
-    if (photoElement) {
-        photoElement.src = photos[0];
-        photoElement.onerror = function() {
-            handleImageError(this);
-        };
-        
-        // Adiciona evento de clique na foto para trocar manualmente
-        photoElement.addEventListener('click', changePhoto);
-    }
-    
-    // Troca as fotos a cada 4 segundos
-    setInterval(changePhoto, 4000);
-    
-    // Anima os contadores a cada 10 segundos
-    setInterval(animateCounters, 10000);
-    
-    console.log('Configuração concluída!');
-});
+}
+
+// Inicia tudo quando a página carregar
+document.addEventListener('DOMContentLoaded', initializePage);
